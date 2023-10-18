@@ -89,3 +89,20 @@ Interact with the program by following the menu prompts. You now have a user-fri
 ![Capture](https://github.com/mdimamhosen/supershop_management_system/assets/119607102/c59e0175-57de-4b91-8180-4f5fedac4fef)
 
 *   > The return 0; statement means that the program will exit, and control will be returned to the operating system with a status code of 0. As a result, the program exits, and the execution terminates.
+
+##  **Here are some screenshots after compiling and running this program**
+
+![Capture](https://github.com/mdimamhosen/Supershop_Management_System_By_Md_Imam_Hosen/assets/119607102/a6dfd8b4-1df7-4fab-8f8b-4fbed2674ed6)
+
+![Capture](https://github.com/mdimamhosen/Supershop_Management_System_By_Md_Imam_Hosen/assets/119607102/02543d54-579b-4d0e-8363-27c9454bea8b)
+
+![Capture](https://github.com/mdimamhosen/Supershop_Management_System_By_Md_Imam_Hosen/assets/119607102/d01f5ab8-23fb-4c51-a4de-f26556ab2b35)
+
+![Capture](https://github.com/mdimamhosen/Supershop_Management_System_By_Md_Imam_Hosen/assets/119607102/2a7f8c1d-df6a-4163-ae2c-0be7207df90d)
+
+
+"_Please write a brief message if you think I need to make any changes._
+
+**Email:** [mdimam.cse9.bu@gmail.com](mailto:mdimam.cse9.bu@gmail.com)
+
+## **Thank you**."

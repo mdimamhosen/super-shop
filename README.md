@@ -33,11 +33,11 @@ To run this project, follow these steps:
 
  4. Compile the code using the following command:
 
-![Capture](https://github.com/mdimamhosen/supershop_management_system/assets/119607102/fb0438b2-2b9c-4d72-8538-dbf05959f74f)
+       `gcc supershop.c -o supershop` on **bash**
 
- 5. Run the compiled program:\
+ 5. Run the compiled program:
 
-![Capture](https://github.com/mdimamhosen/supershop_management_system/assets/119607102/fac472ef-01fe-400e-8041-fc313181b729)
+`.\supershop` on **bash**
 
 Interact with the program by following the menu prompts. You now have a user-friendly Supershop Management System running for your basic inventory management needs.
 
@@ -86,7 +86,9 @@ Interact with the program by following the menu prompts. You now have a user-fri
 
 *   > Inside the main function, there is a while loop that runs indefinitely with the condition while(1). This loop is designed to keep the program running until the user chooses to exit.
 *   > When the user chooses option (Exit), the following lines of code are executed:
-![Capture](https://github.com/mdimamhosen/supershop_management_system/assets/119607102/c59e0175-57de-4b91-8180-4f5fedac4fef)
+ 
+`case 6:
+      return 0;`
 
 *   > The return 0; statement means that the program will exit, and control will be returned to the operating system with a status code of 0. As a result, the program exits, and the execution terminates.
 
@@ -106,3 +108,171 @@ Interact with the program by following the menu prompts. You now have a user-fri
 **Email:** [mdimam.cse9.bu@gmail.com](mailto:mdimam.cse9.bu@gmail.com)
 
 ## **Thank you**."
+
+# # **Here is my full code:**
+
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+struct Product
+{
+    int id;
+    char name[100];
+    char category[50];
+    float price;
+    int quantity;
+};
+
+void addProduct(struct Product supershop[], int *count)
+{
+    struct Product product;
+    printf("Enter product name: ");
+    scanf("%s", product.name);
+    printf("Enter product category: ");
+    scanf("%s", product.category);
+    printf("Enter product price: ");
+    scanf("%f", &product.price);
+    printf("Enter product quantity: ");
+    scanf("%d", &product.quantity);
+    product.id = *count + 1;
+    supershop[*count] = product;
+    (*count)++;
+}
+
+void displaySupershop(struct Product supershop[], int count)
+{
+    printf("Supershop Inventory:\n");
+    printf("ID\tName\tCategory\tPrice\tQuantity\n");
+    for (int i = 0; i < count; i++)
+    {
+        printf("%d\t%s\t%s\t%.2f\t%d\n", supershop[i].id, supershop[i].name, supershop[i].category, supershop[i].price, supershop[i].quantity);
+    }
+}
+
+void editProduct(struct Product supershop[], int count, int productID)
+{
+    int index = -1;
+    for (int i = 0; i < count; i++)
+    {
+        if (supershop[i].id == productID)
+        {
+            index = i;
+            break;
+        }
+    }
+
+    if (index != -1)
+    {
+        printf("Edit Product Details for ID %d:\n", productID);
+        printf("Enter product name: ");
+        scanf("%s", supershop[index].name);
+        printf("Enter product category: ");
+        scanf("%s", supershop[index].category);
+        printf("Enter product price: ");
+        scanf("%f", &supershop[index].price);
+        printf("Enter product quantity: ");
+        scanf("%d", &supershop[index].quantity);
+        printf("Product details updated for ID %d.\n", productID);
+    }
+    else
+    {
+        printf("Product with ID %d not found.\n", productID);
+    }
+}
+
+void deleteProduct(struct Product supershop[], int *count, int productID)
+{
+    int index = -1;
+    for (int i = 0; i < *count; i++)
+    {
+        if (supershop[i].id == productID)
+        {
+            index = i;
+            break;
+        }
+    }
+
+    if (index != -1)
+    {
+        for (int i = index; i < *count - 1; i++)
+        {
+            supershop[i] = supershop[i + 1];
+        }
+        (*count)--;
+        printf("Product with ID %d has been deleted.\n", productID);
+    }
+    else
+    {
+        printf("Product with ID %d not found.\n", productID);
+    }
+}
+
+void saveSupershopToFile(struct Product supershop[], int count)
+{
+    FILE *file = fopen("supershop_inventory.txt", "w");
+    if (file == NULL)
+    {
+        printf("Error opening file for writing.\n");
+    }
+    for (int i = 0; i < count; i++)
+    {
+        fprintf(file, "%d %s %s %.2f %d\n", supershop[i].id, supershop[i].name, supershop[i].category, supershop[i].price, supershop[i].quantity);
+    }
+    fclose(file);
+}
+
+int main()
+{
+    printf("\n\nWelcome to Supershop Management System ... ");
+    struct Product supershop[100];
+    int count = 0;
+    int productID;
+    int choice;
+
+    while (1)
+    {
+        printf("\n\nSupershop Management System\n");
+        printf("\n1. Add Product\n");
+        printf("2. Display Inventory\n");
+        printf("3. Edit Product Details\n");
+        printf("4. Delete Product\n");
+        printf("5. Save Inventory to File\n");
+        printf("6. Exit\n\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                addProduct(supershop, &count);
+                break;
+            case 2:
+                displaySupershop(supershop, count);
+                break;
+            case 3:
+                printf("Enter the ID of the product to edit: ");
+                scanf("%d", &productID);
+                editProduct(supershop, count, productID);
+                break;
+            case 4:
+                printf("Enter the ID of the product to delete: ");
+                scanf("%d", &productID);
+                deleteProduct(supershop, &count, productID);
+                break;
+            case 5:
+                saveSupershopToFile(supershop, count);
+                printf("Supershop inventory data saved to 'supershop_inventory.txt'.");
+                break;
+            case 6:
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+    return 0;
+}
+
+
+
